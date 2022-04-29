@@ -18,4 +18,10 @@ node {
         def getGitHubReleases = new GetGitHubReleases(this)
         getGitHubReleases.getReleases(repo_url)
     }
+    stage('Save artifacts'){
+        archiveArtifacts artifacts: "releases**.txt", caseSensitive: false, onlyIfSuccessful: true
+    }
+    stage('Cleanup'){
+        cleanWs()
+    }
 }
