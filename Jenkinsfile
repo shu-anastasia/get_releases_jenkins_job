@@ -14,12 +14,10 @@ properties(
 )
 
 node {
-    stage('Get Releases') {
-        retry(3){
-            timeout(time: 10, unit: 'SECONDS'){
-                def getGitHubReleases = new GetGitHubReleases(this)
-                getGitHubReleases.getReleases(repo_url)
-            }
+    stage('Get Releases'){
+        timeout(time: 5, unit: 'SECONDS'){
+            def getGitHubReleases = new GetGitHubReleases(this)
+            getGitHubReleases.getReleases(repo_url)
         }
     }
 }
