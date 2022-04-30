@@ -15,7 +15,11 @@ properties(
 
 node {
     stage('Get Releases') {
-        def getGitHubReleases = new GetGitHubReleases(this)
-        getGitHubReleases.getReleases(repo_url)
+        retry(3){
+            timeout(time: 10, unit: 'SECONDS'){
+                def getGitHubReleases = new GetGitHubReleases(this)
+                getGitHubReleases.getReleases(repo_url)
+            }
+        }
     }
 }
